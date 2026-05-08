@@ -1,7 +1,7 @@
 // sheets.js – Zimmerdaten aus Google Sheets laden (kein API-Key erforderlich)
 // Spalten im Sheet: wg_name | zimmer_nr | groesse | preis | status | beschreibung | ausstattung | bild_urls | video_url
 
-const SHEET_ID = '1mV55PDMTyF4pp367H0pREY0yXPj3U4jVZ1U0HJRRrY0';
+const SHEET_ID = '1nRm5mYuvCuDNylftKAhFN8OrZBelQCoCdomdA__a-LE';
 
 // Rohdaten holen und als Array von Objekten zurückgeben
 async function fetchSheetRows() {
