@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontakt – 1aWG.de</title>
+  <meta name="description" content="Kontaktieren Sie Alexander Goerke – privater Vermieter in Stuttgart und Fellbach. Zimmeranfragen per Telefon oder E-Mail.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="ticker-bar"><div class="ticker-inner"><span id="tickerText">Es werden laufend Zimmer frei…</span></div></div>
+
+<nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">1a<span>WG</span>.de</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">WG's</a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-submenu"><a class="dropdown-item" href="wg-fellbach.html">Fellbach</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="sunshine-wg.html">Sunshine-WG</a></li>
+                <li><a class="dropdown-item" href="wss-wg.html">WSS-WG</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu"><a class="dropdown-item" href="wg-untertuerkheim.html">Untertürkheim</a>
+              <ul class="dropdown-menu"><li><a class="dropdown-item" href="wg-untertuerkheim.html">Kappel-WG</a></li></ul>
+            </li>
+            <li class="dropdown-submenu"><a class="dropdown-item" href="gnesener-wg.html">Bad Cannstatt</a>
+              <ul class="dropdown-menu"><li><a class="dropdown-item" href="gnesener-wg.html">Gnesener-WG</a></li></ul>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Apartments</a>
+          <ul class="dropdown-menu"><li><a class="dropdown-item" href="apartments-fellbach.html">Fellbach (Alte Post)</a></li></ul>
+        </li>
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Garagen</a>
+          <ul class="dropdown-menu"><li><a class="dropdown-item" href="garagen-gmuend.html">Schwäbisch Gmünd</a></li></ul>
+        </li>
+        <li class="nav-item"><a class="nav-link active" href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active">Kontakt</li>
+      </ol>
+    </nav>
+    <h1>So erreichen Sie uns</h1>
+    <p class="subtitle">Es werden laufend Zimmer frei – einfach Bescheid geben!</p>
+  </div>
+</div>
+
+<!-- Kontaktkarten -->
+<section class="section-pad-sm" style="background:#fff">
+  <div class="container">
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-4 col-lg-3 fade-up">
+        <div class="info-card text-center">
+          <div class="icon"><i class="bi bi-telephone"></i></div>
+          <h4>Telefon</h4>
+          <a href="tel:0179-8755863" class="d-block" data-contact="telefon">0179-8755863</a>
+          <small class="text-muted">Mo–Sa 8–20 Uhr</small>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-3 fade-up delay-1">
+        <div class="info-card text-center">
+          <div class="icon"><i class="bi bi-phone"></i></div>
+          <h4>Mobil</h4>
+          <a href="tel:01798755863" class="d-block" data-contact="mobil">0179-8755863</a>
+          <small class="text-muted">Auch Nachrichten/WhatsApp</small>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-3 fade-up delay-2">
+        <div class="info-card text-center">
+          <div class="icon"><i class="bi bi-envelope"></i></div>
+          <h4>E-Mail</h4>
+          <a href="mailto:Alex.Goerke@gmx.de" class="d-block" data-contact="email">Alex.Goerke@gmx.de</a>
+          <small class="text-muted">Antwort i.d.R. innerhalb 24h</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Adresse & Formular -->
+<section class="section-pad">
+  <div class="container">
+    <div class="row g-5">
+      <!-- Adresse & Hinweis -->
+      <div class="col-lg-4 fade-up">
+        <h2 class="section-title">Anschrift</h2>
+        <div class="section-divider"></div>
+        <div class="address-block mb-4">
+          <h5><i class="bi bi-person-circle text-accent me-2"></i><span data-contact="name"></span></h5>
+          <p class="mb-0">Hangstr. 14<br>70327 Stuttgart</p>
+          <hr>
+          <p class="mb-1"><i class="bi bi-telephone me-2"></i><a href="tel:0179-8755863" data-contact="telefon"></a></p>
+          <p class="mb-1"><i class="bi bi-phone me-2"></i><a href="tel:01798755863" data-contact="mobil"></a></p>
+          <p class="mb-0"><i class="bi bi-envelope me-2"></i><a href="mailto:Alex.Goerke@gmx.de" data-contact="email"></a></p>
+        </div>
+
+        <div class="alert" style="background:rgba(201,168,76,0.12);border-left:4px solid var(--color-accent);border-radius:0 8px 8px 0;">
+          <h6 style="color:var(--color-primary)"><i class="bi bi-info-circle me-2"></i>Hinweis</h6>
+          <p class="mb-0" style="font-size:.9rem">Es werden laufend Zimmer frei. Bei Interesse schreiben Sie bitte eine kurze E-Mail mit <strong>Einzugswunsch</strong>, <strong>Dauer</strong> und <strong>Kontaktdaten</strong>.</p>
+        </div>
+      </div>
+
+      <!-- Formular -->
+      <div class="col-lg-8 fade-up delay-1">
+        <h2 class="section-title">Anfrage stellen</h2>
+        <div class="section-divider"></div>
+        <div class="contact-form-wrap">
+          <!--
+            FORMSPREE EINRICHTEN:
+            1. Gehen Sie auf https://formspree.io und erstellen Sie einen kostenlosen Account
+            2. Klicken Sie auf "New Form" und geben Sie Ihre E-Mail-Adresse ein
+            3. Kopieren Sie die erhaltene Form-ID (sieht aus wie: xvgojpkz)
+            4. Ersetzen Sie "DEINE_FORMULAR_ID" unten durch Ihre echte ID
+            Beispiel: https://formspree.io/f/xvgojpkz
+          -->
+          <form action="https://formspree.io/f/DEINE_FORMULAR_ID" method="POST" id="contactForm">
+            <input type="hidden" name="_subject" value="Neue Zimmeranfrage über 1aWG.de">
+            <input type="hidden" name="_language" value="de">
+
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label class="form-label" for="vorname">Vorname *</label>
+                <input type="text" class="form-control" id="vorname" name="vorname" required placeholder="Max">
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="nachname">Nachname *</label>
+                <input type="text" class="form-control" id="nachname" name="nachname" required placeholder="Mustermann">
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="email">E-Mail-Adresse *</label>
+                <input type="email" class="form-control" id="email" name="email" required placeholder="max@example.de">
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="telefon">Telefonnummer</label>
+                <input type="tel" class="form-control" id="telefon" name="telefon" placeholder="0711-123456">
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="objekt">Gewünschtes Objekt *</label>
+                <select class="form-select" id="objekt" name="objekt" required>
+                  <option value="">Bitte wählen…</option>
+                  <option>Sunshine-WG Fellbach</option>
+                  <option>WSS-WG Fellbach</option>
+                  <option>Kappel-WG Untertürkheim</option>
+                  <option>Gnesener-WG Bad Cannstatt</option>
+                  <option>Apartment Fellbach</option>
+                  <option>Garage Schwäbisch Gmünd</option>
+                  <option>Sonstiges</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="einzug">Einzugswunsch</label>
+                <input type="date" class="form-control" id="einzug" name="einzug">
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="dauer">Mietdauer</label>
+                <input type="text" class="form-control" id="dauer" name="dauer" placeholder="z.B. 6 Monate, unbefristet, 1 Jahr">
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="nachricht">Nachricht & Angaben zur Person *</label>
+                <textarea class="form-control" id="nachricht" name="nachricht" rows="5" required placeholder="Kurze Vorstellung: Wer sind Sie, woher kommen Sie, was machen Sie beruflich? Was suchen Sie genau?"></textarea>
+              </div>
+              <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="datenschutz" name="datenschutz" required>
+                  <label class="form-check-label" for="datenschutz" style="font-size:.88rem">
+                    Ich habe die <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a> gelesen und akzeptiere sie. *
+                  </label>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn-accent btn w-100" style="padding:.8rem">
+                  <i class="bi bi-send me-2"></i>Anfrage absenden
+                </button>
+                <p class="text-muted text-center mt-2 mb-0" style="font-size:.82rem">
+                  <i class="bi bi-clock me-1"></i>Wir antworten in der Regel innerhalb von 24 Stunden.
+                </p>
+              </div>
+            </div>
+          </form>
+
+          <!-- Erfolg/Fehler Meldungen -->
+          <div id="formSuccess" class="alert mt-3" style="display:none;background:#d4edda;color:#155724;border:none;border-radius:8px">
+            <i class="bi bi-check-circle me-2"></i>Vielen Dank! Ihre Anfrage wurde gesendet. Wir melden uns bald bei Ihnen.
+          </div>
+          <div id="formError" class="alert mt-3" style="display:none;background:#f8d7da;color:#721c24;border:none;border-radius:8px">
+            <i class="bi bi-exclamation-triangle me-2"></i>Fehler beim Senden. Bitte schreiben Sie uns direkt an <a href="mailto:Alex.Goerke@gmx.de">Alex.Goerke@gmx.de</a>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4"><h5>1aWG.de</h5><p style="font-size:0.9rem;color:rgba(255,255,255,0.6)">Privater Vermieter im Raum Stuttgart.</p></div>
+      <div class="col-md-4"><h5>Angebote</h5><ul>
+        <li><a href="wg-fellbach.html"><i class="bi bi-house-door"></i>WGs in Fellbach</a></li>
+        <li><a href="wg-untertuerkheim.html"><i class="bi bi-house-door"></i>WG in Untertürkheim</a></li>
+        <li><a href="apartments-fellbach.html"><i class="bi bi-building"></i>Apartments Fellbach</a></li>
+        <li><a href="garagen-gmuend.html"><i class="bi bi-p-square"></i>Garagen Gmünd</a></li>
+      </ul></div>
+      <div class="col-md-4"><h5>Kontakt</h5><ul>
+        <li><i class="bi bi-person"></i><span data-contact="name"></span></li>
+        <li><i class="bi bi-telephone"></i><a data-contact="telefon" href="tel:0179-8755863"></a></li>
+        <li><i class="bi bi-envelope"></i><a data-contact="email" href="mailto:Alex.Goerke@gmx.de"></a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom d-flex justify-content-between flex-wrap gap-2">
+      <span>© 2024 Alexander Goerke · 1aWG.de</span>
+      <span><a href="datenschutz.html">Datenschutz</a></span>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-cta-bar d-lg-none">
+  <a href="tel:0179-8755863" class="cta-phone"><i class="bi bi-telephone-fill"></i><span>Anrufen</span></a>
+  <a href="mailto:Alex.Goerke@gmx.de" class="cta-email"><i class="bi bi-envelope-fill"></i><span>E-Mail</span></a>
+</div>
+
+<script src="data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="main.js"></script>
+<script>
+// Formspree AJAX Submit
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('[type=submit]');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Wird gesendet…';
+  try {
+    const res = await fetch(this.action, {
+      method: 'POST',
+      body: new FormData(this),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      document.getElementById('formSuccess').style.display = 'block';
+      this.reset();
+    } else {
+      throw new Error();
+    }
+  } catch {
+    document.getElementById('formError').style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="bi bi-send me-2"></i>Anfrage absenden';
+  }
+});
+</script>
+</body>
+</html>

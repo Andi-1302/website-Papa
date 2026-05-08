@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1aWG.de – Zimmer, WGs & Apartments in Stuttgart und Fellbach</title>
+  <meta name="description" content="Möblierte Zimmer in WGs und Apartments in Fellbach und Stuttgart-Untertürkheim. Privater Vermieter. Jetzt anfragen.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Ticker -->
+<div class="ticker-bar">
+  <div class="ticker-inner"><span id="tickerText">Es werden laufend Zimmer frei…</span></div>
+</div>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">1a<span>WG</span>.de</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">WG's</a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-submenu">
+              <a class="dropdown-item" href="wg-fellbach.html">Fellbach</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="sunshine-wg.html">Sunshine-WG</a></li>
+                <li><a class="dropdown-item" href="wss-wg.html">WSS-WG</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu">
+              <a class="dropdown-item" href="wg-untertuerkheim.html">Untertürkheim</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="wg-untertuerkheim.html">Kappel-WG</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu">
+              <a class="dropdown-item" href="gnesener-wg.html">Bad Cannstatt</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="gnesener-wg.html">Gnesener-WG</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Apartments</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="apartments-fellbach.html">Fellbach (Alte Post)</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Garagen</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="garagen-gmuend.html">Schwäbisch Gmünd</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Slider -->
+<div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel" data-bs-interval="5000">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3"></button>
+  </div>
+  <div class="carousel-inner" id="heroSlides">
+    <!-- Befüllt via JS -->
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+<!-- Willkommen -->
+<section class="section-pad-sm bg-warm">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 fade-up">
+        <div class="welcome-section text-center">
+          <h2 class="section-title">Herzlich willkommen!</h2>
+          <div class="section-divider mx-auto"></div>
+          <p id="begruessung"></p>
+          <div class="mt-3 d-flex justify-content-center gap-3 flex-wrap">
+            <a href="kontakt.html" class="btn-accent btn">Jetzt anfragen</a>
+            <a href="tel:0179-8755863" class="btn-outline-primary-custom btn">
+              <i class="bi bi-telephone me-1"></i><span data-contact="telefon"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Angebote -->
+<section class="section-pad">
+  <div class="container">
+    <div class="text-center mb-5 fade-up">
+      <h2 class="section-title">Unsere Angebote</h2>
+      <div class="section-divider mx-auto"></div>
+      <p class="section-subtitle">Möblierte Zimmer und Apartments in bester Lage – alles inklusive.</p>
+    </div>
+    <div class="row g-4" id="propertyGrid">
+      <!-- Befüllt via JS -->
+    </div>
+  </div>
+</section>
+
+<!-- CTA Strip -->
+<section class="cta-strip">
+  <div class="container">
+    <h3>Interesse geweckt?</h3>
+    <p>Schreiben Sie uns eine kurze E-Mail – wir antworten innerhalb von 24 Stunden.</p>
+    <a href="tel:0179-8755863" class="btn-white">
+      <i class="bi bi-telephone me-2"></i>0179-8755863
+    </a>
+    <a href="mailto:Alex.Goerke@gmx.de" class="btn-white">
+      <i class="bi bi-envelope me-2"></i>E-Mail schreiben
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4 fade-up">
+        <h5>1aWG.de</h5>
+        <p style="font-size:0.9rem;color:rgba(255,255,255,0.6)">Privater Vermieter für möblierte Zimmer, WGs und Apartments im Raum Stuttgart.</p>
+      </div>
+      <div class="col-md-4 fade-up delay-1">
+        <h5>Angebote</h5>
+        <ul>
+          <li><a href="wg-fellbach.html"><i class="bi bi-house-door"></i>WGs in Fellbach</a></li>
+          <li><a href="wg-untertuerkheim.html"><i class="bi bi-house-door"></i>WG in Untertürkheim</a></li>
+          <li><a href="gnesener-wg.html"><i class="bi bi-house-door"></i>WG Bad Cannstatt</a></li>
+          <li><a href="apartments-fellbach.html"><i class="bi bi-building"></i>Apartments Fellbach</a></li>
+          <li><a href="garagen-gmuend.html"><i class="bi bi-p-square"></i>Garagen Schwäb. Gmünd</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4 fade-up delay-2">
+        <h5>Kontakt</h5>
+        <ul>
+          <li><i class="bi bi-person"></i><span data-contact="name"></span></li>
+          <li><i class="bi bi-geo-alt"></i>Hangstr. 14, 70327 Stuttgart</li>
+          <li><i class="bi bi-telephone"></i><a data-contact="telefon" href="tel:0179-8755863"></a></li>
+          <li><i class="bi bi-phone"></i><a data-contact="mobil" href="tel:01798755863"></a></li>
+          <li><i class="bi bi-envelope"></i><a data-contact="email" href="mailto:Alex.Goerke@gmx.de"></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom d-flex justify-content-between flex-wrap gap-2">
+      <span>© 2025 Alexander Goerke · 1aWG.de</span>
+      <span><a href="datenschutz.html">Datenschutz</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile CTA Bar -->
+<div class="mobile-cta-bar d-lg-none">
+  <a href="tel:0179-8755863" class="cta-phone">
+    <i class="bi bi-telephone-fill"></i>
+    <span>Anrufen</span>
+  </a>
+  <a href="mailto:Alex.Goerke@gmx.de" class="cta-email">
+    <i class="bi bi-envelope-fill"></i>
+    <span>E-Mail</span>
+  </a>
+</div>
+
+<script src="data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script src="main.js"></script>
+<script>
+(function() {
+  // Hero Slider
+  var slides = siteData.startseite.slides;
+  var slidesContainer = document.getElementById('heroSlides');
+  slidesContainer.innerHTML = slides.map(function(s, i) {
+    return '<div class="carousel-item ' + (i === 0 ? 'active' : '') + '">' +
+      (s.bild
+        ? '<img src="' + s.bild + '" alt="' + s.ueberschrift + '" onerror="this.parentElement.innerHTML=\'<div class=carousel-placeholder>' + s.ueberschrift + '</div>\'">'
+        : '<div class="carousel-placeholder">' + s.ueberschrift + '</div>') +
+      '<div class="carousel-caption"><h2>' + s.ueberschrift + '</h2>' +
+      '<a href="kontakt.html" class="btn-accent btn">Jetzt anfragen</a></div></div>';
+  }).join('');
+
+  // Begrüßungstext
+  document.getElementById('begruessung').textContent = siteData.startseite.begruessung;
+
+  // Angebotskarten – statisch (keine Abhängigkeit von getObjekt mehr)
+  var cards = [
+    { name: '3-/4er WG Fellbach', addr: 'Wilhelm-Stähle-Str. 5, Fellbach-Schmiden', href: 'wg-fellbach.html', icon: 'bi-house-door', desc: 'Sunshine-WG & WSS-WG · Möblierte Zimmer, Flachdachterrasse, zentrale Lage.' },
+    { name: '3er WG Untertürkheim', addr: 'Kappelbergstr. 3, Stuttgart-Untertürkheim', href: 'wg-untertuerkheim.html', icon: 'bi-house-door', desc: 'Kappel-WG im Dachgeschoss · Alle NK inklusive.' },
+    { name: '15er WG Bad Cannstatt', addr: 'Gnesener Straße 74, Stuttgart-Bad Cannstatt', href: 'gnesener-wg.html', icon: 'bi-house-door', desc: 'Gnesener-WG · Große WG mit 15 möblierten Zimmern.' },
+    { name: 'Apartments Fellbach', addr: 'Remstalstr. 4, Fellbach-Schmiden', href: 'apartments-fellbach.html', icon: 'bi-building', desc: 'Ehemalige Alte Post · Eigenes Bad, W-Lan, alle NK inklusive.' },
+    { name: 'Garagen Schwäb. Gmünd', addr: 'Jahnstraße 8, Schwäbisch Gmünd', href: 'garagen-gmuend.html', icon: 'bi-p-square', desc: '8 einzeln abschließbare Garagen · 75–85 € / Monat.' }
+  ];
+  var grid = document.getElementById('propertyGrid');
+  grid.innerHTML = cards.map(function(c, i) {
+    return '<div class="col-sm-6 col-lg-3 fade-up delay-' + i + '">' +
+      '<div class="property-card">' +
+      '<div class="property-card-img"><div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%">' +
+      '<i class="bi ' + c.icon + '" style="font-size:2.5rem;color:#c0c8c2"></i></div></div>' +
+      '<div class="property-card-body">' +
+      '<h3>' + c.name + '</h3>' +
+      '<p class="address"><i class="bi bi-geo-alt me-1"></i>' + c.addr + '</p>' +
+      '<p class="desc">' + c.desc + '</p></div>' +
+      '<div class="property-card-footer">' +
+      '<a href="' + c.href + '" class="btn-accent btn btn-sm">Details</a></div>' +
+      '</div></div>';
+  }).join('');
+})();
+</script>
+</body>
+</html>
