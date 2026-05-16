@@ -759,30 +759,49 @@ async function ladeVorschauBilder() {
     var namen = el.getAttribute('data-wg-vorschau').split(',').map(function (s) { return s.trim(); });
     var bildUrl = '';
 
-    // Erst vorschau_bild prüfen (Reihenfolge der WG-Namen = Fallback)
     for (var i = 0; i < namen.length && !bildUrl; i++) {
       var info = lookup[namen[i]];
       if (!info) continue;
-      if (info.vorschau_bild && info.vorschau_bild.trim()) {
-        bildUrl = info.vorschau_bild.trim();
-      }
+      if (info.vorschau_bild && info.vorschau_bild.trim()) bildUrl = info.vorschau_bild.trim();
     }
 
-    // Dann Galerie-Felder als Fallback
     if (!bildUrl) {
-      for (var i = 0; i < namen.length && !bildUrl; i++) {
-        var info = lookup[namen[i]];
-        if (!info) continue;
+      for (var j = 0; j < namen.length && !bildUrl; j++) {
+        var info2 = lookup[namen[j]];
+        if (!info2) continue;
         for (var f = 0; f < _fallbackFelder.length && !bildUrl; f++) {
-          var bilder = _parseBilder(info[_fallbackFelder[f]]);
+          var bilder = _parseBilder(info2[_fallbackFelder[f]]);
           if (bilder.length > 0) bildUrl = bilder[0];
         }
       }
     }
 
     if (bildUrl) {
-      el.innerHTML = '<img src="' + _esc(bildUrl) + '" alt="" loading="lazy">';
+      el.innerHTML = '<img src="' + _esc(bildUrl) + '" alt="" loading="lazy" style="width:100%;height:200px;object-fit:cover;border-radius:8px 8px 0 0;display:block;">';
+    } else {
+      el.innerHTML = '<div style="width:100%;height:200px;background:#e8d5c4;border-radius:8px 8px 0 0;"></div>';
     }
-    // Kein Bild → Icon-Platzhalter bleibt unverändert
   });
+}
+
+// =====================================================================
+// PREIS-BADGE (einzelne WG-Seiten)
+// Liest preis_anzeige aus wg_info und schreibt den Wert in #preis-badge.
+// Falls leer: bestehendes HTML-Fallback bleibt unverändert.
+// =====================================================================
+
+/**
+ * @param {string} wgName – z.B. 'sunshine-wg'
+ */
+async function ladePreisBadge(wgName) {
+  var el = document.getElementById('preis-badge');
+  if (!el) return;
+  try {
+    var info = await getWgInfo(wgName);
+    if (info && info.preis_anzeige && info.preis_anzeige.trim()) {
+      el.textContent = info.preis_anzeige.trim();
+      el.removeAttribute('hidden');
+      el.style.display = '';
+    }
+  } catch (e) {}
 }

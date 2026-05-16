@@ -82,7 +82,7 @@
         <div class="info-card"><div class="icon"><i class="bi bi-train-front"></i></div><h4>ÖPNV</h4><p class="mb-0 text-muted" style="font-size:.88rem">Gute Anbindung</p></div>
       </div>
       <div class="col-6 col-md-3 fade-up delay-3">
-        <div class="info-card"><div class="icon"><i class="bi bi-currency-euro"></i></div><h4>Auf Anfrage</h4><p class="mb-0 text-muted" style="font-size:.88rem">Preise je Zimmer</p></div>
+        <div class="info-card"><div class="icon"><i class="bi bi-currency-euro"></i></div><h4 id="preis-badge">Auf Anfrage</h4><p class="mb-0 text-muted" style="font-size:.88rem">Preise je Zimmer</p></div>
       </div>
     </div>
   </div>
@@ -188,6 +188,7 @@
   ladeWGZimmer('gnesener-wg', 'zimmerContainer', 'grid');
   ladeWGInfo('gnesener-wg', 'wgInfoContainer');
   ladeKategorieGalerien('gnesener-wg', 'kategorieContainer');
+  ladePreisBadge('gnesener-wg');
 </script>
 </body>
 </html>

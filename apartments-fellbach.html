@@ -80,7 +80,7 @@
       <div class="col-6 col-md-3 fade-up"><div class="info-card"><div class="icon"><i class="bi bi-house-check"></i></div><h4>Eigenes Bad</h4><p class="mb-0 text-muted" style="font-size:.88rem">Gefliestes Privatbad</p></div></div>
       <div class="col-6 col-md-3 fade-up delay-1"><div class="info-card"><div class="icon"><i class="bi bi-rulers"></i></div><h4>20–22 m²</h4><p class="mb-0 text-muted" style="font-size:.88rem">Moderne Zimmer</p></div></div>
       <div class="col-6 col-md-3 fade-up delay-2"><div class="info-card"><div class="icon"><i class="bi bi-wifi"></i></div><h4>W-Lan & TV</h4><p class="mb-0 text-muted" style="font-size:.88rem">Für alle Bewohner</p></div></div>
-      <div class="col-6 col-md-3 fade-up delay-3"><div class="info-card"><div class="icon"><i class="bi bi-currency-euro"></i></div><h4>Auf Anfrage</h4><p class="mb-0 text-muted" style="font-size:.88rem">pro Apartment</p></div></div>
+      <div class="col-6 col-md-3 fade-up delay-3"><div class="info-card"><div class="icon"><i class="bi bi-currency-euro"></i></div><h4 id="preis-badge">Auf Anfrage</h4><p class="mb-0 text-muted" style="font-size:.88rem">pro Apartment</p></div></div>
     </div>
   </div>
 </section>
@@ -195,6 +195,7 @@
   // Freie Apartments aus Google Sheets laden (wg_name = 'apartments-fellbach')
   ladeWGZimmer('apartments-fellbach', 'zimmerContainer', 'full');
   ladeWGInfo('apartments-fellbach', 'wgInfoContainer');
+  ladePreisBadge('apartments-fellbach');
 </script>
 </body>
 </html>

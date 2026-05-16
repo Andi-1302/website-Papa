@@ -76,7 +76,7 @@
       <div class="col-md-4 fade-up">
         <div class="price-box h-100">
           <div class="price-label">Mietpreis pro Monat</div>
-          <div class="price-range" id="preisRange">85 €</div>
+          <div class="price-range" id="preis-badge">75–85 €</div>
           <div class="price-label mt-1">inkl. Mehrwertsteuer</div>
           <hr style="border-color:rgba(255,255,255,0.2);margin:1rem 0">
           <p style="font-size:.9rem;opacity:.8">8 verfügbare Garagen<br>Einzeln abschließbar<br>Kein Stromanschluss</p>
@@ -207,8 +207,8 @@
 <script src="main.js"></script>
 <script src="js/sheets-loader.js"></script>
 <script>
-  // Verfügbare Garagen aus Google Sheets laden (wg_name = 'garagen-gmuend')
   ladeWGZimmer('garagen-gmuend', 'garagenContainer', 'grid');
+  ladePreisBadge('garagen-gmuend');
 </script>
 </body>
 </html>
