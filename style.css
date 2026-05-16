@@ -915,6 +915,247 @@ body.admin-body {
 .status-btn-anfrage { background: #fff3cd; color: #856404; }
 .status-btn-anfrage.active, .status-btn-anfrage:hover { background: #856404; color: #fff; border-color: #856404; }
 
+/* =====================================================
+   ZIMMER-KARTEN (Daten kommen live aus Google Sheets)
+   ===================================================== */
+
+/* Kartentitel */
+.room-card-titel { margin: 0; color: #fff; font-size: 1.1rem; }
+.room-card-titel-klein { margin: 0; color: #fff; font-size: 0.95rem; }
+.room-card-groesse { font-weight: 400; font-size: 0.88rem; opacity: 0.8; }
+
+/* Kompakte Variante (Gnesener-WG, Garagen) */
+.room-card-kompakt { margin-bottom: 0; }
+.room-card-body-kompakt { padding: 0.9rem; }
+
+/* Foto-Galerie in der Zimmerkarte */
+.zimmer-galerie-wrap { position: relative; border-radius: 8px; overflow: hidden; }
+.zimmer-hauptfoto {
+  display: block;
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--color-border);
+}
+.zimmer-hauptfoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.zimmer-hauptfoto:hover img { transform: scale(1.04); }
+.zimmer-foto-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(28,61,46,0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  color: rgba(255,255,255,0);
+  font-size: 1.4rem;
+  transition: all var(--transition);
+  pointer-events: none;
+}
+.zimmer-foto-overlay span { font-size: 0.85rem; font-weight: 600; }
+.zimmer-hauptfoto:hover .zimmer-foto-overlay {
+  background: rgba(28,61,46,0.4);
+  color: #fff;
+}
+
+/* Platzhalterbild wenn noch kein Foto vorhanden */
+.zimmer-foto-platzhalter {
+  aspect-ratio: 4/3;
+  background: var(--color-bg);
+  border-radius: 8px;
+  border: 2px dashed var(--color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--color-muted);
+}
+.zimmer-foto-platzhalter i { font-size: 2rem; opacity: 0.4; }
+.zimmer-foto-platzhalter span { font-size: 0.82rem; }
+
+/* Grid-Foto (kompakte Karte) */
+.zimmer-grid-foto {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+  background: var(--color-border);
+}
+.zimmer-grid-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.zimmer-grid-foto:hover img { transform: scale(1.05); }
+.zimmer-grid-platzhalter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-muted);
+}
+.zimmer-grid-platzhalter i { font-size: 1.6rem; opacity: 0.35; }
+
+/* Ausstattungs-Tags */
+.zimmer-ausstattung {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.75rem 0;
+}
+.ausstattung-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(28,61,46,0.07);
+  color: var(--color-primary);
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.ausstattung-tag i { font-size: 0.75rem; color: var(--color-accent); }
+
+/* Preisanzeige */
+.zimmer-preis {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+.zimmer-preis i { color: var(--color-accent); }
+.zimmer-preis-klein {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+/* Fußzeile der kompakten Karte */
+.zimmer-kurzbeschreibung {
+  font-size: 0.86rem;
+  color: var(--color-muted);
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+.zimmer-grid-fusszeile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* =====================================================
+   LADE- UND FEHLERZUSTÄNDE
+   ===================================================== */
+
+/* Ladeanimation (Spinning-Kreis) */
+.ladeanimation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 0;
+  color: var(--color-muted);
+}
+.lade-kreis {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: drehen 0.8s linear infinite;
+}
+@keyframes drehen { to { transform: rotate(360deg); } }
+
+/* Fehlerhinweis (Netzwerkfehler) */
+.ladehinweis {
+  padding: 1.2rem 1.5rem;
+  border-radius: 0 8px 8px 0;
+  margin: 2rem 0;
+}
+.ladehinweis-fehler {
+  background: rgba(220,53,69,0.07);
+  border-left: 4px solid #dc3545;
+  color: var(--color-text);
+}
+.ladehinweis-fehler a { color: #dc3545; font-weight: 600; }
+
+/* Keine-Zimmer-Box (alle vermietet) */
+.keine-zimmer-box {
+  padding: 4rem 2rem;
+  color: var(--color-muted);
+}
+.keine-zimmer-box i {
+  font-size: 3rem;
+  color: var(--color-accent);
+  opacity: 0.5;
+  display: block;
+  margin-bottom: 1rem;
+}
+.keine-zimmer-box h4 { color: var(--color-primary); margin-bottom: 0.75rem; }
+.keine-zimmer-box p { max-width: 420px; margin: 0 auto 1.5rem; }
+
+/* =====================================================
+   WG-INFO (dynamisch aus wg_info-Sheet)
+   ===================================================== */
+
+.wg-info-block {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+.wg-info-text {
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+.wg-info-zeile {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.93rem;
+}
+.wg-info-icon {
+  color: var(--color-accent);
+  font-size: 1rem;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+/* =====================================================
+   LIVE-ZÄHLER (Startseite)
+   ===================================================== */
+
+.zimmer-zaehler-wrap { margin: 1.2rem 0 0; }
+.zimmer-zaehler {
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+.zimmer-zaehler strong { font-size: 1.15rem; }
+.zaehler-frei {
+  background: rgba(21,87,36,0.1);
+  color: #155724;
+  border: 1px solid rgba(21,87,36,0.2);
+}
+.zaehler-belegt {
+  background: rgba(133,100,4,0.1);
+  color: #856404;
+  border: 1px solid rgba(133,100,4,0.2);
+}
+
 /* --- Responsive --- */
 @media (max-width: 991px) {
   body { padding-top: 68px; }
