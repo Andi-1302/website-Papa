@@ -1,6 +1,5 @@
 // main.js – Gemeinsame Funktionen für alle öffentlichen Seiten
 
-// Veraltete Admin-Daten aus dem Browser-Speicher löschen
 localStorage.removeItem('siteData');
 localStorage.removeItem('adminPasswordHash');
 
@@ -8,11 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- Ticker Text ---
   var tickerEl = document.getElementById('tickerText');
-  if (tickerEl && siteData.global) {
-    tickerEl.textContent = siteData.global.lauftext;
-  }
+  if (tickerEl && siteData.global) tickerEl.textContent = siteData.global.lauftext;
 
-  // --- Kontaktdaten dynamisch befüllen (data-contact="...") ---
+  // --- Kontaktdaten dynamisch befüllen ---
   var k = siteData.kontakt;
   document.querySelectorAll('[data-contact="telefon"]').forEach(function(el) {
     el.textContent = k.telefon;
@@ -33,25 +30,15 @@ document.addEventListener('DOMContentLoaded', function () {
     el.textContent = k.strasse + ', ' + k.plz + ' ' + k.ort;
   });
 
-  // --- Mobile CTA Bar ---
-  document.querySelectorAll('.cta-phone').forEach(function(el) {
-    el.href = 'tel:' + k.telefon.replace(/[^+\d]/g, '');
-    var span = el.querySelector('span');
-    if (span) span.textContent = k.telefon;
-  });
-  document.querySelectorAll('.cta-email').forEach(function(el) {
-    el.href = 'mailto:' + k.email;
-    var span = el.querySelector('span');
-    if (span) span.textContent = k.email;
-  });
-
   // --- Submenu Hover ---
   document.querySelectorAll('.dropdown-submenu').forEach(function(el) {
     el.addEventListener('mouseenter', function() {
-      this.querySelector('.dropdown-menu') && this.querySelector('.dropdown-menu').classList.add('show');
+      var m = this.querySelector('.dropdown-menu');
+      if (m) m.classList.add('show');
     });
     el.addEventListener('mouseleave', function() {
-      this.querySelector('.dropdown-menu') && this.querySelector('.dropdown-menu').classList.remove('show');
+      var m = this.querySelector('.dropdown-menu');
+      if (m) m.classList.remove('show');
     });
   });
 
@@ -63,12 +50,12 @@ document.addEventListener('DOMContentLoaded', function () {
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
   document.querySelectorAll('.fade-up').forEach(function(el) { observer.observe(el); });
 
   // --- GLightbox ---
   if (typeof GLightbox !== 'undefined') {
-    GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true });
+    GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, keyboardNavigation: true });
   }
 
   // --- 2-Click Google Maps Consent ---
@@ -82,7 +69,65 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // --- Floating Contact Button ---
+  _erstelleFloatButton(k);
+
 });
+
+function _erstelleFloatButton(k) {
+  var tel   = 'tel:' + k.telefon.replace(/[^+\d]/g, '');
+  var mail  = 'mailto:' + k.email;
+
+  var wrap = document.createElement('div');
+  wrap.className = 'float-kontakt';
+  wrap.setAttribute('aria-label', 'Kontakt');
+  wrap.innerHTML =
+    '<div class="float-kontakt-menu" aria-hidden="true">' +
+      '<a href="' + mail + '" class="float-kontakt-link">' +
+        '<i class="bi bi-envelope-fill" aria-hidden="true"></i><span>E-Mail schreiben</span>' +
+      '</a>' +
+      '<a href="' + tel + '" class="float-kontakt-link">' +
+        '<i class="bi bi-telephone-fill" aria-hidden="true"></i><span>' + k.telefon + '</span>' +
+      '</a>' +
+    '</div>' +
+    '<button class="float-kontakt-btn" aria-expanded="false" aria-label="Kontaktoptionen öffnen">' +
+      '<i class="bi bi-telephone-fill"></i>' +
+      '<i class="bi bi-x-lg"></i>' +
+    '</button>';
+
+  document.body.appendChild(wrap);
+
+  var btn  = wrap.querySelector('.float-kontakt-btn');
+  var menu = wrap.querySelector('.float-kontakt-menu');
+  var open = false;
+
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    open = !open;
+    wrap.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+    menu.setAttribute('aria-hidden', !open);
+  });
+
+  document.addEventListener('click', function(e) {
+    if (open && !wrap.contains(e.target)) {
+      open = false;
+      wrap.classList.remove('open');
+      btn.setAttribute('aria-expanded', false);
+      menu.setAttribute('aria-hidden', true);
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && open) {
+      open = false;
+      wrap.classList.remove('open');
+      btn.setAttribute('aria-expanded', false);
+      menu.setAttribute('aria-hidden', true);
+      btn.focus();
+    }
+  });
+}
 
 // --- Galerie rendern (allgemein, wird von einigen Seiten genutzt) ---
 function renderGallery(bilder, containerId) {

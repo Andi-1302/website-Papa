@@ -309,21 +309,22 @@ function _zimmerKarteFull(zimmer, index, wgName) {
       : '') +
     '</h3>' +
     '<span class="badge-status badge-frei" role="status">Frei</span>' +
+    '<a href="' + anfrage + '" class="zimmer-anfrage-icon ms-2" ' +
+    'title="Zimmer ' + _esc(zimmer.zimmer_nr) + ' anfragen" ' +
+    'aria-label="Zimmer ' + _esc(zimmer.zimmer_nr) + ' anfragen">' +
+    '<i class="bi bi-envelope-fill" aria-hidden="true"></i></a>' +
     '</div>' +
 
     '<div class="room-card-body"><div class="row g-4">' +
 
-    // Linke Spalte: Textinfos + Anfrage-Button
     '<div class="col-md-6">' +
     (zimmer.beschreibung ? '<p>' + _esc(zimmer.beschreibung) + '</p>' : '') +
     (zimmer.preis
       ? '<p class="zimmer-preis">' +
         '<i class="bi bi-currency-euro me-1" aria-hidden="true"></i>' +
-        _esc(zimmer.preis) + ' warm / Monat</p>'
+        _esc(zimmer.preis) + '&thinsp;€ warm / Monat</p>'
       : '') +
     _renderAusstattung(zimmer.ausstattung) +
-    '<a href="' + anfrage + '" class="btn-accent btn btn-sm mt-3">' +
-    '<i class="bi bi-envelope me-1" aria-hidden="true"></i>Zimmer anfragen</a>' +
     '</div>' +
 
     // Rechte Spalte: Foto-Galerie + Video
@@ -385,8 +386,10 @@ function _zimmerKarteGrid(zimmer, index, wgName) {
     '</p>' +
     '<div class="zimmer-grid-fusszeile">' +
     '<span class="zimmer-preis-klein">' + preis + '</span>' +
-    '<a href="' + anfrage + '" class="btn btn-accent btn-sm">' +
-    '<i class="bi bi-envelope me-1" aria-hidden="true"></i>Anfragen</a>' +
+    '<a href="' + anfrage + '" class="zimmer-anfrage-icon" ' +
+    'title="Zimmer ' + _esc(zimmer.zimmer_nr) + ' anfragen" ' +
+    'aria-label="Zimmer ' + _esc(zimmer.zimmer_nr) + ' anfragen">' +
+    '<i class="bi bi-envelope-fill" aria-hidden="true"></i></a>' +
     '</div></div></article></div>';
 }
 
@@ -580,7 +583,206 @@ async function zeigeFreeZimmerZaehler(elementId) {
     }
     el.removeAttribute('hidden');
   } catch (fehler) {
-    // Bei Fehler einfach ausblenden – kein Hinweis nötig
     el.setAttribute('hidden', '');
   }
+}
+
+// =====================================================================
+// KATEGORIE-GALERIEN (Küche, Bad, Wohnzimmer, Terrasse, Flur …)
+// Liest die neuen Bildspalten aus dem wg_info-Sheet und rendert
+// pro nicht-leerer Spalte ein Bootstrap-Karussell mit GLightbox.
+// =====================================================================
+
+var _KATEGORIE_FELDER = [
+  { key: 'bilder_kueche',          label: 'Küche',             icon: 'bi-cup-hot' },
+  { key: 'bilder_bad',             label: 'Bad & WC',          icon: 'bi-droplet' },
+  { key: 'bilder_wohnzimmer',      label: 'Wohnzimmer',        icon: 'bi-tv' },
+  { key: 'bilder_terrasse_balkon', label: 'Terrasse & Balkon', icon: 'bi-tree' },
+  { key: 'bilder_flur',            label: 'Flur',              icon: 'bi-door-open' },
+  { key: 'bilder_sonstiges',       label: 'Weitere Eindrücke', icon: 'bi-images' }
+];
+
+/** Rendert ein Bootstrap-Karussell für eine Bildkategorie */
+function _renderKarussell(bilder, karussellId, label, icon) {
+  var indikatoren = bilder.length > 1
+    ? '<div class="carousel-indicators">' +
+      bilder.map(function(_, i) {
+        return '<button type="button" data-bs-target="#' + karussellId + '" ' +
+          'data-bs-slide-to="' + i + '"' + (i === 0 ? ' class="active"' : '') + '></button>';
+      }).join('') + '</div>'
+    : '';
+
+  var slides = bilder.map(function(url, i) {
+    return '<div class="carousel-item' + (i === 0 ? ' active' : '') + '">' +
+      '<a href="' + _esc(url) + '" class="glightbox kat-bild-link" ' +
+      'data-gallery="' + karussellId + '" ' +
+      'aria-label="' + _esc(label) + ' – Foto ' + (i + 1) + '">' +
+      '<img src="' + _esc(url) + '" alt="' + _esc(label) + '" loading="lazy">' +
+      '<div class="kat-bild-overlay"><i class="bi bi-arrows-fullscreen" aria-hidden="true"></i></div>' +
+      '</a></div>';
+  }).join('');
+
+  var steuerung = bilder.length > 1
+    ? '<button class="carousel-control-prev" type="button" data-bs-target="#' + karussellId + '" data-bs-slide="prev">' +
+      '<span class="carousel-control-prev-icon" aria-hidden="true"></span></button>' +
+      '<button class="carousel-control-next" type="button" data-bs-target="#' + karussellId + '" data-bs-slide="next">' +
+      '<span class="carousel-control-next-icon" aria-hidden="true"></span></button>'
+    : '';
+
+  return '<div class="kat-galerie-card fade-up">' +
+    '<div class="kat-galerie-header">' +
+    '<i class="bi ' + _esc(icon) + '" aria-hidden="true"></i>' +
+    '<span>' + _esc(label) + '</span>' +
+    (bilder.length > 1 ? '<span class="kat-foto-count">' + bilder.length + '&thinsp;Fotos</span>' : '') +
+    '</div>' +
+    '<div id="' + karussellId + '" class="carousel slide" data-bs-touch="true">' +
+    indikatoren +
+    '<div class="carousel-inner kat-carousel-inner">' + slides + '</div>' +
+    steuerung +
+    '</div></div>';
+}
+
+/**
+ * Lädt Kategorie-Galerien für eine WG aus dem wg_info-Sheet
+ * und rendert sie in den angegebenen Container.
+ * Die übergeordnete <section> wird automatisch sichtbar gemacht.
+ *
+ * @param {string} wgName      – z.B. 'sunshine-wg'
+ * @param {string} containerId – ID des Ziel-Elements
+ */
+async function ladeKategorieGalerien(wgName, containerId) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
+
+  var info;
+  try {
+    info = await getWgInfo(wgName);
+  } catch (e) { return; }
+  if (!info) return;
+
+  var html    = '';
+  var anzahl  = 0;
+
+  _KATEGORIE_FELDER.forEach(function(feld) {
+    var bilder = _parseBilder(info[feld.key]);
+    if (bilder.length === 0) return;
+    var id = 'kat-' + wgName.replace(/[^a-z0-9]/g, '-') + '-' + feld.key;
+    html += _renderKarussell(bilder, id, feld.label, feld.icon);
+    anzahl++;
+  });
+
+  if (anzahl === 0) return;
+
+  container.innerHTML = '<div class="kat-galerie-grid">' + html + '</div>';
+
+  // Übergeordnete section sichtbar machen
+  var eltern = container.parentElement;
+  while (eltern && eltern.tagName !== 'SECTION') eltern = eltern.parentElement;
+  if (eltern) eltern.removeAttribute('hidden');
+
+  // IntersectionObserver für Fade-in auf neuen Karten
+  if (window.IntersectionObserver) {
+    var obs = new IntersectionObserver(function(eintraege) {
+      eintraege.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.05 });
+    container.querySelectorAll('.fade-up').forEach(function(el) { obs.observe(el); });
+  } else {
+    container.querySelectorAll('.fade-up').forEach(function(el) { el.classList.add('visible'); });
+  }
+
+  // GLightbox neu initialisieren
+  if (typeof GLightbox !== 'undefined') {
+    GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, keyboardNavigation: true });
+  }
+}
+
+// =====================================================================
+// FREIE-ZIMMER-BADGES AUF ÜBERSICHTSKARTEN
+// Befüllt alle [data-wg-count="wg-name"] Elemente mit einem Live-Badge.
+// Mehrere WG-Namen möglich: data-wg-count="sunshine-wg,wss-wg"
+// =====================================================================
+
+/**
+ * Freie-Zimmer-Badge auf Übersichtskarten anzeigen.
+ * Elemente mit data-wg-count werden automatisch gefunden und befüllt.
+ */
+async function zeigeFreieZimmerBadges() {
+  var elemente = document.querySelectorAll('[data-wg-count]');
+  if (!elemente.length) return;
+
+  var zeilen;
+  try { zeilen = await _ladeZimmerDaten(); }
+  catch (e) { return; }
+
+  var zaehler = {};
+  zeilen.forEach(function (z) {
+    if (z.status === 'frei') zaehler[z.wg_name] = (zaehler[z.wg_name] || 0) + 1;
+  });
+
+  elemente.forEach(function (el) {
+    var namen = el.getAttribute('data-wg-count').split(',').map(function (s) { return s.trim(); });
+    var gesamt = namen.reduce(function (sum, n) { return sum + (zaehler[n] || 0); }, 0);
+    if (gesamt > 0) {
+      el.innerHTML = '<span class="wg-frei-badge badge-frei">' +
+        '<i class="bi bi-check-circle" aria-hidden="true"></i>' + gesamt + '&thinsp;Zimmer frei</span>';
+    } else {
+      el.innerHTML = '<span class="wg-frei-badge badge-belegt">Aktuell belegt</span>';
+    }
+  });
+}
+
+// =====================================================================
+// VORSCHAUBILDER FÜR ÜBERSICHTSKACHELN
+// Liest vorschau_bild aus wg_info und ersetzt den Icon-Platzhalter
+// durch das echte Bild. Fallback-Kette: vorschau_bild →
+// erstes Bild aus bilder_wohnzimmer → bilder_kueche → bilder_sonstiges.
+// Elemente mit data-wg-vorschau="wg-name1,wg-name2" werden befüllt.
+// Mehrere WG-Namen = Fallback-Reihenfolge (erste WG mit Bild gewinnt).
+// =====================================================================
+
+async function ladeVorschauBilder() {
+  var elemente = document.querySelectorAll('[data-wg-vorschau]');
+  if (!elemente.length) return;
+
+  var zeilen;
+  try { zeilen = await _ladeWGInfoDaten(); }
+  catch (e) { return; }
+
+  var lookup = {};
+  zeilen.forEach(function (z) { lookup[z.wg_name] = z; });
+
+  var _fallbackFelder = ['bilder_wohnzimmer', 'bilder_kueche', 'bilder_sonstiges', 'bilder_bad'];
+
+  elemente.forEach(function (el) {
+    var namen = el.getAttribute('data-wg-vorschau').split(',').map(function (s) { return s.trim(); });
+    var bildUrl = '';
+
+    // Erst vorschau_bild prüfen (Reihenfolge der WG-Namen = Fallback)
+    for (var i = 0; i < namen.length && !bildUrl; i++) {
+      var info = lookup[namen[i]];
+      if (!info) continue;
+      if (info.vorschau_bild && info.vorschau_bild.trim()) {
+        bildUrl = info.vorschau_bild.trim();
+      }
+    }
+
+    // Dann Galerie-Felder als Fallback
+    if (!bildUrl) {
+      for (var i = 0; i < namen.length && !bildUrl; i++) {
+        var info = lookup[namen[i]];
+        if (!info) continue;
+        for (var f = 0; f < _fallbackFelder.length && !bildUrl; f++) {
+          var bilder = _parseBilder(info[_fallbackFelder[f]]);
+          if (bilder.length > 0) bildUrl = bilder[0];
+        }
+      }
+    }
+
+    if (bildUrl) {
+      el.innerHTML = '<img src="' + _esc(bildUrl) + '" alt="" loading="lazy">';
+    }
+    // Kein Bild → Icon-Platzhalter bleibt unverändert
+  });
 }

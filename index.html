@@ -12,7 +12,7 @@
   <meta property="og:locale" content="de_DE">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
   <link rel="stylesheet" href="style.css">
@@ -221,29 +221,32 @@ zeigeFreeZimmerZaehler('zimmerZaehler');
   // Begrüßungstext
   document.getElementById('begruessung').textContent = siteData.startseite.begruessung;
 
-  // Angebotskarten – statisch (keine Abhängigkeit von getObjekt mehr)
+  // Angebotskarten
   var cards = [
-    { name: '3-/4er WG Fellbach', addr: 'Wilhelm-Stähle-Str. 5, Fellbach-Schmiden', href: 'wg-fellbach.html', icon: 'bi-house-door', desc: 'Sunshine-WG & WSS-WG · Möblierte Zimmer, Flachdachterrasse, zentrale Lage.' },
-    { name: '3er WG Untertürkheim', addr: 'Kappelbergstr. 3, Stuttgart-Untertürkheim', href: 'wg-untertuerkheim.html', icon: 'bi-house-door', desc: 'Kappel-WG im Dachgeschoss · Alle NK inklusive.' },
-    { name: '15er WG Bad Cannstatt', addr: 'Gnesener Straße 74, Stuttgart-Bad Cannstatt', href: 'gnesener-wg.html', icon: 'bi-house-door', desc: 'Gnesener-WG · Große WG mit 15 möblierten Zimmern.' },
-    { name: 'Apartments Fellbach', addr: 'Remstalstr. 4, Fellbach-Schmiden', href: 'apartments-fellbach.html', icon: 'bi-building', desc: 'Ehemalige Alte Post · Eigenes Bad, W-Lan, alle NK inklusive.' },
-    { name: 'Garagen Schwäb. Gmünd', addr: 'Jahnstraße 8, Schwäbisch Gmünd', href: 'garagen-gmuend.html', icon: 'bi-p-square', desc: '8 einzeln abschließbare Garagen · 75–85 € / Monat.' }
+    { name: '3-/4er WG Fellbach', addr: 'Wilhelm-Stähle-Str. 5, Fellbach-Schmiden', href: 'wg-fellbach.html', icon: 'bi-house-door', desc: 'Sunshine-WG & WSS-WG · Möblierte Zimmer, Flachdachterrasse, zentrale Lage.', wgCount: 'sunshine-wg,wss-wg', wgVorschau: 'sunshine-wg,wss-wg' },
+    { name: '3er WG Untertürkheim', addr: 'Kappelbergstr. 3, Stuttgart-Untertürkheim', href: 'wg-untertuerkheim.html', icon: 'bi-house-door', desc: 'Kappel-WG im Dachgeschoss · Alle NK inklusive.', wgCount: 'kappel-wg', wgVorschau: 'kappel-wg' },
+    { name: '15er WG Bad Cannstatt', addr: 'Gnesener Straße 74, Stuttgart-Bad Cannstatt', href: 'gnesener-wg.html', icon: 'bi-house-door', desc: 'Gnesener-WG · Große WG mit 15 möblierten Zimmern.', wgCount: 'gnesener-wg', wgVorschau: 'gnesener-wg' },
+    { name: 'Apartments Fellbach', addr: 'Remstalstr. 4, Fellbach-Schmiden', href: 'apartments-fellbach.html', icon: 'bi-building', desc: 'Ehemalige Alte Post · Eigenes Bad, W-Lan, alle NK inklusive.', wgCount: 'apartments-fellbach', wgVorschau: 'apartments-fellbach' },
+    { name: 'Garagen Schwäb. Gmünd', addr: 'Jahnstraße 8, Schwäbisch Gmünd', href: 'garagen-gmuend.html', icon: 'bi-p-square', desc: '8 einzeln abschließbare Garagen · 75–85 € / Monat.', wgCount: 'garagen-gmuend', wgVorschau: 'garagen-gmuend' }
   ];
   var grid = document.getElementById('propertyGrid');
   grid.innerHTML = cards.map(function(c, i) {
     return '<div class="col-sm-6 col-lg-3 fade-up delay-' + i + '">' +
       '<div class="property-card">' +
-      '<div class="property-card-img"><div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%">' +
-      '<i class="bi ' + c.icon + '" style="font-size:2.5rem;color:#c0c8c2"></i></div></div>' +
+      '<div class="property-card-img" data-wg-vorschau="' + c.wgVorschau + '">' +
+      '<i class="bi ' + c.icon + '" style="font-size:2.5rem;color:#c0c8c2"></i></div>' +
       '<div class="property-card-body">' +
       '<h3>' + c.name + '</h3>' +
       '<p class="address"><i class="bi bi-geo-alt me-1"></i>' + c.addr + '</p>' +
+      '<div data-wg-count="' + c.wgCount + '"></div>' +
       '<p class="desc">' + c.desc + '</p></div>' +
       '<div class="property-card-footer">' +
       '<a href="' + c.href + '" class="btn-accent btn btn-sm">Details</a></div>' +
       '</div></div>';
   }).join('');
 })();
+zeigeFreieZimmerBadges();
+ladeVorschauBilder();
 </script>
 </body>
 </html>
