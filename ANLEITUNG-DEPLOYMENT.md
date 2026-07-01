@@ -91,7 +91,7 @@ Die Zimmer werden live aus einem Google Sheets geladen.
 ### Sheet-ID eintragen:
 In der Datei `sheets.js` (Zeile 1) steht bereits eine Sheet-ID:
 ```javascript
-const SHEET_ID = '1mV55PDMTyF4pp367H0pREY0yXPj3U4jVZ1U0HJRRrY0';
+const SHEET_ID = '1te-4NxFomA1QhfOgjIDrbbZNOq7ZP3YB';
 ```
 Ersetzen Sie diesen Wert durch die ID Ihres eigenen Google Sheets (die lange Zeichenkette aus der URL Ihres Sheets).
 

@@ -24,7 +24,7 @@
 // KONFIGURATION
 // Nur diese Zeile muss angepasst werden, wenn das Sheet wechselt.
 // =====================================================================
-var SHEET_ID   = '1mV55PDMTyF4pp367H0pREY0yXPj3U4jVZ1U0HJRRrY0';
+var SHEET_ID   = '1te-4NxFomA1QhfOgjIDrbbZNOq7ZP3YB';
 var CSV_ZIMMER  = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=zimmer';
 var CSV_WG_INFO = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=wg_info';
 
@@ -138,19 +138,43 @@ async function _ladeCSV(url) {
 
 async function _ladeZimmerDaten() {
   var cache = _ausCache('zimmer');
-  if (cache) return cache;
+  if (cache !== null) {
+    console.log('[DEBUG] zimmer: aus sessionStorage-Cache geladen (' + cache.length + ' Zeilen)');
+    return cache;
+  }
   var text = await _ladeCSV(CSV_ZIMMER);
   var daten = _parseCSV(text);
-  _inCache('zimmer', daten);
+  if (daten.length > 0) {
+    console.log('[DEBUG] zimmer: ' + daten.length + ' Zeilen geladen');
+    console.log('[DEBUG] zimmer: Spaltennamen →', Object.keys(daten[0]));
+    daten.forEach(function(z, i) {
+      console.log('[DEBUG] zimmer[' + i + ']:', 'wg_name="' + z.wg_name + '"  status="' + z.status + '"  zimmer_nr="' + z.zimmer_nr + '"  preis="' + z.preis + '"');
+    });
+    _inCache('zimmer', daten);
+  } else {
+    console.warn('[DEBUG] zimmer: CSV geladen, aber 0 Datenzeilen geparst!');
+  }
   return daten;
 }
 
 async function _ladeWGInfoDaten() {
   var cache = _ausCache('wg_info');
-  if (cache) return cache;
+  if (cache !== null) {
+    console.log('[DEBUG] wg_info: aus sessionStorage-Cache geladen (' + cache.length + ' Zeilen)');
+    return cache;
+  }
   var text = await _ladeCSV(CSV_WG_INFO);
   var daten = _parseCSV(text);
-  _inCache('wg_info', daten);
+  if (daten.length > 0) {
+    console.log('[DEBUG] wg_info: ' + daten.length + ' Zeilen geladen');
+    console.log('[DEBUG] wg_info: Spaltennamen →', Object.keys(daten[0]));
+    daten.forEach(function(z, i) {
+      console.log('[DEBUG] wg_info[' + i + ']:', 'wg_name="' + z.wg_name + '"  preis_anzeige="' + z.preis_anzeige + '"  beschreibung_allgemein="' + (z.beschreibung_allgemein || '').slice(0, 60) + '…"');
+    });
+    _inCache('wg_info', daten);
+  } else {
+    console.warn('[DEBUG] wg_info: CSV geladen, aber 0 Datenzeilen geparst!');
+  }
   return daten;
 }
 
@@ -442,6 +466,7 @@ async function ladeWGZimmer(wgName, containerId, layout) {
     _zeigeFehler(container);
     return;
   }
+  console.log('[DEBUG] ladeWGZimmer("' + wgName + '"): ' + zimmer.length + ' freie Zimmer gefunden');
 
   // Keine freien Zimmer → Wartelisten-Hinweis
   if (zimmer.length === 0) {
@@ -525,7 +550,11 @@ async function ladeWGInfo(wgName, containerId) {
   } catch (fehler) {
     return; // Fehler still ignorieren – statischer Inhalt bleibt sichtbar
   }
-  if (!info) return;
+  if (!info) {
+    console.warn('[DEBUG] ladeWGInfo("' + wgName + '"): kein Eintrag im wg_info-Sheet gefunden!');
+    return;
+  }
+  console.log('[DEBUG] ladeWGInfo("' + wgName + '"): Eintrag gefunden →', info);
 
   // Felder die angezeigt werden sollen (in dieser Reihenfolge)
   var felder = [
@@ -799,9 +828,14 @@ async function ladePreisBadge(wgName) {
   try {
     var info = await getWgInfo(wgName);
     if (info && info.preis_anzeige && info.preis_anzeige.trim()) {
+      console.log('[DEBUG] ladePreisBadge("' + wgName + '"): Wert="' + info.preis_anzeige.trim() + '"');
       el.textContent = info.preis_anzeige.trim();
       el.removeAttribute('hidden');
       el.style.display = '';
+    } else {
+      console.warn('[DEBUG] ladePreisBadge("' + wgName + '"): preis_anzeige ist leer oder fehlt. info=', info);
     }
-  } catch (e) {}
+  } catch (e) {
+    console.error('[DEBUG] ladePreisBadge("' + wgName + '"): Fehler', e);
+  }
 }
